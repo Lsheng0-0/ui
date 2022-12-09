@@ -74,7 +74,7 @@ class MainPane(mc_p_Switch, api_Page, ui_exit):
         self.pushButton_bottom_next.clicked.connect(lambda: self.next_music())  # 下一首
         self.pushButton_bottom_last.clicked.connect(lambda: self.last_music_thread())  # 上一首
         self.pushButton_bottom_lyric.clicked.connect(lambda: self.mp3_player())  # mp3
-        self.pushButton_bottom_button_1_download.clicked.connect(lambda: self.bt_download())
+        self.pushButton_bottom_button_1_download.clicked.connect(lambda: self.bt_download_local())
         
         # 主页
         self.pushButton_top_1.clicked.connect(lambda: self.bt_page_index())

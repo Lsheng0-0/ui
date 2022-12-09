@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 from PyQt5.QtCore import QThread, pyqtSignal, QMutex
 from pachong.music.kg_mc import red_js, obt_js, red_cache, get_mp3_js, reco, hot, collection, rise, mc_sheet_to_js, \
-    Thread_dload_image, pl_info_to_js
+    Thread_dload_image, pl_info_to_js, down_load_mc
 
 qmut_1 = QMutex()  # 创建线程锁
 qmut_2 = QMutex()
@@ -10,6 +10,7 @@ qmut_4 = QMutex()
 qmut_5 = QMutex()
 qmut_6 = QMutex()
 qmut_7 = QMutex()
+qmut_8 = QMutex()
 
 class re_js_thread(QThread):
     sinout = pyqtSignal(list)  # 自定义信号，执行run()函数时，从相关线程发射此信号
@@ -185,3 +186,34 @@ class refresh_thread(QThread):
         pl_info_to_js(fol_na, fi_na)
         self.toout.emit()
         qmut_6.unlock()
+
+
+class dload_mp3_thread(QThread):
+    mp3_out = pyqtSignal(str,list,int)  # 自定义信号，执行run()函数时，从相关线程发射此信号
+    
+    def __init__(self):
+        super(dload_mp3_thread, self).__init__()
+        self.num = None
+        self.url = None
+
+    def set_param(self, url, num):
+        self.url = url
+        self.num = num
+    def run(self):
+        global fi
+        qmut_8.lock()
+        try:
+            cache = red_cache()
+            if len(cache[self.url]) != 0:
+                self.mp3 = cache[self.url]
+        except:
+            self.mp3 = get_mp3_js(self.url)
+        if self.mp3 is True:
+            print('此歌曲当前无法下载,点击下面链接手动解锁滑块')
+            print(
+                    'https://www.kugou.com/mixsong/j3pry11.html#hash=6F64D67C0E499C0636A85807EC0F0EC5&album_id=965221&album_audio_id=32086078'
+            )
+            self.mp3 = None
+            self.num = None
+        self.mp3_out.emit(self.url, self.mp3, self.num)
+        qmut_8.unlock()

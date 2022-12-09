@@ -73,6 +73,7 @@ params = {
 
 mc_song = defaultdict(list)
 mc_song_inf = defaultdict(list)
+mc_dload = defaultdict(list)
 
 
 def wr_js(fol_na, fi_na, data):
@@ -427,12 +428,31 @@ def ranking_class(who):
         src = 'https://www.kugou.com/yy/rank/home/1-30972.html?from=rank'
         Ranking_List_js(fol_na, fi_na, src)
 
-def down_load_mc(url_mp3,path,name_mp3):
+def down_load_mc(so_url, url_mp3,path,name_mp3):
+    mc_dload.clear()
     content3 = requests.get(url=url_mp3, headers=header_img)
     with open(r'{}\{}.mp3'.format(path, name_mp3), 'wb')as down:
         down.write(content3.content)
     down.close()
-
+    # 读取下载的信息，没有的则加入，便于已下载的改变图标并不可点击
+    try:
+        with open(r'pachong\music\local\dload_Ed.json', encoding='utf-8') as r:
+                tuple = json.load(r)
+                r.close()
+        if so_url in tuple:
+            pass
+        else:
+            with open(r'pachong\music\local\dload_Ed.json', 'w', encoding='utf-8') as a:
+                mc_dload[so_url].append(name_mp3)
+                tuple.update(mc_dload)
+                json.dump(tuple, a, ensure_ascii=False, indent=-1)
+            a.close()
+    except:
+        with open(r'pachong\music\local\dload_Ed.json', 'w', encoding='utf-8') as a:
+            mc_dload[so_url].append(name_mp3)
+            json.dump(mc_dload, a, ensure_ascii=False, indent=-1)
+        a.close()
+    
 # url = 'https://webfs.ali.kugou.com/202212051406/249b130e8cf68c2feabd76635e1159f7/KGTX/CLTX003/abf1ba87b0b4126ba688e2d2125b4200.mp3'
 # down_load_mc(url)
 # who = 'soar'

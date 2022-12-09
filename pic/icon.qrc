@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icon">
+    <file>icon/dload_ok.png</file>
     <file>icon/search.png</file>
     <file>icon/loop_along.png</file>
     <file>icon/exit_black.png</file>

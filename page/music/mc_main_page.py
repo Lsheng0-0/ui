@@ -8,6 +8,7 @@ stackedWidget_bottom :
 0 音乐头像,名称
 
 """
+import json
 import os
 import random
 import sys
@@ -20,10 +21,11 @@ from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtCore import QUrl, QThread, pyqtSignal, QMutex, pyqtSlot, QTimer
 from PyQt5.QtMultimedia import QMediaContent
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QRadioButton, QLabel
-from pachong.music.kg_mc import get_mp3_js, dload_image, red_cache, wr_js, obt_js, add_js_data, to_ini, down_load_mc
+from pachong.music.kg_mc import get_mp3_js, dload_image, red_cache, wr_js, obt_js, add_js_data, to_ini, down_load_mc, \
+    red_js
 from page.api_page import api_Page
 from thread_mc.thread_mc import re_js_thread, re_so_ing_thread, add_list_thread, refresh_thread, \
-    add_ranking_thread, set_songlist_page_Th
+    add_ranking_thread, set_songlist_page_Th, dload_mp3_thread
 from ui.api_windows.ui_grid_list import ui_grid_li
 from ui.api_windows.ui_ranking_list import Ui_ra_list
 from ui.main_window import Ui_MainWindow
@@ -50,6 +52,8 @@ class mc_p_Switch(QMainWindow, Ui_MainWindow):
         global gl_Page_and_num
         global gl_All_list_play
         global gl_Last_so_P
+        global gl_ing_url
+        gl_ing_url = None
         self.page_index_num = []
         self.page_last = 0
         self.lyric = []
@@ -229,11 +233,20 @@ class mc_p_Switch(QMainWindow, Ui_MainWindow):
     
     # down下载按钮下载歌曲
     def bt_download_local(self):
+        global gl_ing_url
+        if gl_ing_url is None:
+            print('当前无音乐，无法下载')
+        else:
+            
+            self.mp3_download(gl_ing_url)
+
+    """获取当前音乐的mp3连接,下载地址,名称"""
+    def mp3_download(self, _ing_url):
         """获取当前音乐的mp3连接,下载地址,名称"""
-        down_load_mc(url_mp3, path, name_mp3)
+        _mp3 = red_js('local', 'cache', _ing_url)
+        down_load_mc(_ing_url,_mp3[3], self.file_path, _mp3[0])
         
     '''歌词动画组设置'''
-    
     # 歌词随进度变化
     def lyric_time_change_pre(self, mp3):
         self.lyr = []
@@ -246,7 +259,6 @@ class mc_p_Switch(QMainWindow, Ui_MainWindow):
         # print(self.lyr_num, self.lyrtime_num)
         self.lyrime.timeout.connect(lambda: self.lyrime_label())  # 歌词高亮
         self.Lyrics_display(mp3[4])
-    
     # 歌词变化动画策略
     def lyrime_label(self):
         # print(self.lyr_num, len(self.lyr))
@@ -299,16 +311,22 @@ class mc_p_Switch(QMainWindow, Ui_MainWindow):
             lyre = self.ui_Label_lyric(lyr)
             self.lyric.append(lyre)
             try:
-                lyrs = lyrics[str(lyr)].replace("\\", '')
-                # print(lyrs)
+                try:
+                    # print(lyrics[lyr])
+                    lyrs = lyrics[lyr].replace("\\", '')
+                    # print(lyrs)
+                except:
+                    lyrs = lyrics[str(lyr)].replace("\\", '')
             except:
-                lyrs = lyrics[str(lyr)]
+                try:
+                    lyrs = lyrics[lyr]
+                except:
+                    lyrs = lyrics[str(lyr)]
             lyre.setText("{}".format(lyrs))  # 歌詞
             lyre.setWordWrap(True)  # 歌词显示自动换行
             self.verticalLayout_16.addWidget(lyre)
     
     '''歌词页面调用管理'''
-    
     # 头像上拉单曲页面,(其他页面操作会自动跳转到头像组)
     def bt_page_music_alone(self):
         self.sign_so_detail_page()
@@ -742,9 +760,47 @@ class mc_p_Switch(QMainWindow, Ui_MainWindow):
         )
         bt_play.disconnect()
         bt_play.clicked.connect(lambda: self._bt_player_connect(num, so_url))
-        
-        # 单点播放音乐
+        # 单曲下载
+        bt_download = self.so_list_P[gl_Last_so_P][0].findChild(
+                QPushButton, "pushButton_song_list_bottom_download_{}_{}".format(
+                        gl_Last_so_P, str(num)
+                )
+        )
+        bt_download.disconnect()
+        try:
+            # 重写已下载的图标，并不可点击
+            with open(r'pachong\music\local\dload_Ed.json', encoding='utf-8') as r:
+                dload_url = json.load(r)
+            r.close()
+            if so_url in dload_url:
+                bt_download.setIcon(QtGui.QIcon(':/icon/icon/dload_ok.png'))  # 设置图标
+                bt_download.setEnabled(False)
+            else:
+                bt_download.clicked.connect(lambda: self.bt_dload_thread(so_url, num))
+        except:
+            bt_download.clicked.connect(lambda: self.bt_dload_thread(so_url, num))
+            
+    def bt_dload_thread(self, so_url, num):
+        self.dload_mp3 = dload_mp3_thread()
+        self.dload_mp3.mp3_out.connect(self._bt_download_connect)
+        self.dload_mp3.set_param(so_url,num)
+        self.dload_mp3.start()
+    # 下载单曲音乐
+    def _bt_download_connect(self, so_url, mp3, num):
+        global gl_Last_so_P
+        down_load_mc(so_url, mp3[3], self.file_path, mp3[0])
+        # 单曲下载
+        bt_download = self.so_list_P[gl_Last_so_P][0].findChild(
+                QPushButton, "pushButton_song_list_bottom_download_{}_{}".format(
+                        gl_Last_so_P, str(num)
+                )
+        )
+        # 重写已下载的图标，并不可点击
+        bt_download.setIcon(QtGui.QIcon(':/icon/icon/dload_ok.png'))  # 设置图标
+        bt_download.setEnabled(False)
     
+        
+    # 单点播放音乐
     def _bt_player_connect(self, num, so_url):
         global nu
         global gl_All_list_play

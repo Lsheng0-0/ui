@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1024</width>
-    <height>752</height>
+    <height>684</height>
    </rect>
   </property>
   <property name="font">
@@ -1864,8 +1864,8 @@ QPushButton:focus {
                                           <rect>
                                            <x>0</x>
                                            <y>0</y>
-                                           <width>700</width>
-                                           <height>220</height>
+                                           <width>100</width>
+                                           <height>30</height>
                                           </rect>
                                          </property>
                                          <layout class="QVBoxLayout" name="verticalLayout_mc_reco_rise">
@@ -3884,7 +3884,7 @@ QPushButton:pressed{
                          <item>
                           <widget class="QStackedWidget" name="mc_manage_load_SW">
                            <property name="currentIndex">
-                            <number>1</number>
+                            <number>0</number>
                            </property>
                            <widget class="QWidget" name="mc_loaded_list">
                             <layout class="QVBoxLayout" name="verticalLayout_57">
@@ -4205,8 +4205,8 @@ border-bottom-right-radius:10px;</string>
                                     <rect>
                                      <x>0</x>
                                      <y>0</y>
-                                     <width>815</width>
-                                     <height>120</height>
+                                     <width>818</width>
+                                     <height>395</height>
                                     </rect>
                                    </property>
                                    <layout class="QVBoxLayout" name="verticalLayout_55">
@@ -4357,13 +4357,13 @@ QLabel{
                                            <widget class="QPushButton" name="mc_loaded_list_song_0_play">
                                             <property name="minimumSize">
                                              <size>
-                                              <width>235</width>
+                                              <width>100</width>
                                               <height>40</height>
                                              </size>
                                             </property>
                                             <property name="maximumSize">
                                              <size>
-                                              <width>235</width>
+                                              <width>100</width>
                                               <height>40</height>
                                              </size>
                                             </property>
@@ -4372,6 +4372,25 @@ QLabel{
                                             </property>
                                             <property name="text">
                                              <string>时长</string>
+                                            </property>
+                                           </widget>
+                                          </item>
+                                          <item>
+                                           <widget class="QLabel" name="label">
+                                            <property name="minimumSize">
+                                             <size>
+                                              <width>135</width>
+                                              <height>0</height>
+                                             </size>
+                                            </property>
+                                            <property name="maximumSize">
+                                             <size>
+                                              <width>135</width>
+                                              <height>40</height>
+                                             </size>
+                                            </property>
+                                            <property name="text">
+                                             <string>下载时间</string>
                                             </property>
                                            </widget>
                                           </item>
@@ -4473,18 +4492,40 @@ QPushButton:hover{
                                            <widget class="QLabel" name="mc_loaded_list_song_1_ti">
                                             <property name="minimumSize">
                                              <size>
-                                              <width>235</width>
+                                              <width>100</width>
                                               <height>40</height>
                                              </size>
                                             </property>
                                             <property name="maximumSize">
                                              <size>
-                                              <width>235</width>
+                                              <width>100</width>
                                               <height>40</height>
                                              </size>
                                             </property>
                                             <property name="text">
                                              <string>00:00</string>
+                                            </property>
+                                           </widget>
+                                          </item>
+                                          <item>
+                                           <widget class="QLabel" name="label_2">
+                                            <property name="minimumSize">
+                                             <size>
+                                              <width>135</width>
+                                              <height>0</height>
+                                             </size>
+                                            </property>
+                                            <property name="maximumSize">
+                                             <size>
+                                              <width>135</width>
+                                              <height>16777215</height>
+                                             </size>
+                                            </property>
+                                            <property name="styleSheet">
+                                             <string notr="true">color: rgb(179, 179, 179);</string>
+                                            </property>
+                                            <property name="text">
+                                             <string>本周 123小时</string>
                                             </property>
                                            </widget>
                                           </item>
@@ -4584,18 +4625,40 @@ QPushButton:hover{
                                            <widget class="QLabel" name="mc_loaded_list_song_2_ti">
                                             <property name="minimumSize">
                                              <size>
-                                              <width>235</width>
+                                              <width>100</width>
                                               <height>40</height>
                                              </size>
                                             </property>
                                             <property name="maximumSize">
                                              <size>
-                                              <width>235</width>
+                                              <width>100</width>
                                               <height>40</height>
                                              </size>
                                             </property>
                                             <property name="text">
                                              <string>00:00</string>
+                                            </property>
+                                           </widget>
+                                          </item>
+                                          <item>
+                                           <widget class="QLabel" name="label_3">
+                                            <property name="minimumSize">
+                                             <size>
+                                              <width>135</width>
+                                              <height>0</height>
+                                             </size>
+                                            </property>
+                                            <property name="maximumSize">
+                                             <size>
+                                              <width>135</width>
+                                              <height>16777215</height>
+                                             </size>
+                                            </property>
+                                            <property name="styleSheet">
+                                             <string notr="true">color: rgb(179, 179, 179);</string>
+                                            </property>
+                                            <property name="text">
+                                             <string>上周 524小时</string>
                                             </property>
                                            </widget>
                                           </item>
@@ -4939,8 +5002,8 @@ QPushButton:pressed{
                                     <rect>
                                      <x>0</x>
                                      <y>0</y>
-                                     <width>818</width>
-                                     <height>463</height>
+                                     <width>815</width>
+                                     <height>120</height>
                                     </rect>
                                    </property>
                                    <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -5937,7 +6000,7 @@ border-bottom-right-radius:11px;</string>
                                  <x>0</x>
                                  <y>0</y>
                                  <width>818</width>
-                                 <height>423</height>
+                                 <height>355</height>
                                 </rect>
                                </property>
                                <layout class="QVBoxLayout" name="verticalLayout_21">
@@ -5971,7 +6034,7 @@ border-bottom-right-radius:11px;</string>
                                   <property name="sizeHint" stdset="0">
                                    <size>
                                     <width>20</width>
-                                    <height>418</height>
+                                    <height>350</height>
                                    </size>
                                   </property>
                                  </spacer>
@@ -6793,8 +6856,8 @@ QPushButton:focus {
                                    <rect>
                                     <x>0</x>
                                     <y>0</y>
-                                    <width>776</width>
-                                    <height>172</height>
+                                    <width>353</width>
+                                    <height>40</height>
                                    </rect>
                                   </property>
                                   <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -7635,10 +7698,10 @@ QScrollArea:vertical{background-color:transparent;width:20px;height:255px;paddin
                          <widget class="QWidget" name="scrollAreaWidgetContents">
                           <property name="geometry">
                            <rect>
-                            <x>20</x>
+                            <x>0</x>
                             <y>0</y>
-                            <width>720</width>
-                            <height>320</height>
+                            <width>92</width>
+                            <height>16</height>
                            </rect>
                           </property>
                           <layout class="QVBoxLayout" name="verticalLayout_16">
