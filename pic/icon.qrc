@@ -1,0 +1,51 @@
+<RCC>
+  <qresource prefix="icon">
+    <file>icon/search.png</file>
+    <file>icon/loop_along.png</file>
+    <file>icon/exit_black.png</file>
+    <file>icon/loop.png</file>
+    <file>icon/random.png</file>
+    <file>icon/refresh.png</file>
+    <file>icon/search.png</file>
+    <file>icon/about.png</file>
+    <file>icon/add.png</file>
+    <file>icon/add_1.png</file>
+    <file>icon/big.png</file>
+    <file>icon/close.png</file>
+    <file>icon/down.png</file>
+    <file>icon/download.png</file>
+    <file>icon/edit.png</file>
+    <file>icon/edit_2.png</file>
+    <file>icon/emile.png</file>
+    <file>icon/left.png</file>
+    <file>icon/line.png</file>
+    <file>icon/logo.png</file>
+    <file>icon/low.png</file>
+    <file>icon/menu.png</file>
+    <file>icon/Next.png</file>
+    <file>icon/pause.png</file>
+    <file>icon/play.png</file>
+    <file>icon/right.png</file>
+    <file>icon/round.png</file>
+    <file>icon/set_up.png</file>
+    <file>icon/share.png</file>
+    <file>icon/shut_down.png</file>
+    <file>icon/theme.png</file>
+    <file>icon/up.png</file>
+    <file>icon/updown.png</file>
+    <file>icon/upper.png</file>
+    <file>icon/user.png</file>
+    <file>icon/user_write.png</file>
+    <file>icon/volume.png</file>
+    <file>icon/volume_big.png</file>
+    <file>icon/volume_closs.png</file>
+  </qresource>
+  <qresource prefix="image">
+    <file>image/404.jpg</file>
+    <file>image/7.jpg</file>
+    <file>image/2.png</file>
+    <file>image/4.jpeg</file>
+    <file>image/3.jpeg</file>
+    <file>image/1.png</file>
+  </qresource>
+</RCC>

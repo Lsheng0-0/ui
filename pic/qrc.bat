@@ -1,0 +1,1 @@
+pyrcc5 -o  icon.py  icon.qrc
